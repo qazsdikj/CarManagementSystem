@@ -1,32 +1,67 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Car.Car;
+import Car.TWO_WHEELEDCar;
+import Car.VANCar;
+
 public class CMSmenu {
 	Car car;
 	ArrayList<Car> cars = new ArrayList<Car>();
 	Scanner input;
 	CMSmenu(Scanner input) {
 		this.input = input;
-	}
+	} 
+	 
 	public void addCar() {
-		car = new Car();
-		System.out.print("차량 번호 입력 : ");
-		car.CarNum = input.next();
-		car.PrintCarNum();
-		System.out.print("차종 입력 : ");
-		car.CarType = input.next();
-		car.PrintCarType();
-		System.out.print("제조사 입력 : ");
-		car.CarMaker = input.next();
-		car.PrintCarMaker();
-		System.out.print("차명 입력 : ");
-		car.CarName = input.next();
-		car.PrintCarName();
-		System.out.print("연식 입력 : ");
-		car.CarAge = input.nextInt();
-		car.PrintCarAge();
+		int kind = 0;
+		Car car;
+		while (kind != 1 && kind != 2 && kind != 3 && kind != 4 && kind != 5) {
+			System.out.print("1. 승용차 ");
+			System.out.print("2. 승합차 ");
+			System.out.print("3. 화물차 ");
+			System.out.print("4. 특수차 ");
+			System.out.print("5. 이륜차 ");
+			System.out.println(" 차량 분류 선택 : ");
+			kind = input.nextInt();
+			if (kind == 1) {
+				car = new Car();
+				car.getUserInput(input);
+				cars.add(car);
+				break;
+			}
+			else if(kind == 2) {
+				car = new VANCar();
+				car.getUserInput(input);
+				cars.add(car);
+				break;
+			}
 		
-		cars.add(car);
+			else if(kind == 3) {
+				car = new Car();
+				car.getUserInput(input);
+				cars.add(car);
+				break;
+			}
+			
+			else if(kind == 4) {
+				car = new Car();
+				car.getUserInput(input);
+				cars.add(car);
+				break;
+			}
+			
+			else if(kind == 5) {
+				car = new TWO_WHEELEDCar();
+				car.getUserInput(input);
+				cars.add(car);
+				break;
+			}
+			
+			else {
+				System.out.println(" 차량 분류 선택 : ");
+			}
+		}
 	}
 	
 	public void deleteCar() {
@@ -34,7 +69,7 @@ public class CMSmenu {
 		String CarNum = input.next();
 		int index = -1;
 		for(int i = 0; i<cars.size(); i++) {
-			if(cars.get(i).CarNum.equals(CarNum)) {
+			if(cars.get(i).getCarNum().equals(CarNum)) {
 				index = i;
 				break;
 			}
@@ -52,6 +87,7 @@ public class CMSmenu {
 	}
 	
 	public void ViewCars() {
+		System.out.println("저장된 자동차 수 : " + cars.size());
 		for(int i = 0; i<cars.size(); i++) {
 			cars.get(i).PrintInfo();
 		}
@@ -62,7 +98,7 @@ public class CMSmenu {
 		String CarNumber = input.next();
 		for(int i = 0; i<cars.size(); i++) {
 			Car car = cars.get(i);
-			if (car.CarNum.equals(CarNumber)) {
+			if (car.getCarNum().equals(CarNumber)) {
 				int num = -1;
 				while (num !=6 ) {
 					System.out.println("**차량 정보 수정**");
@@ -75,23 +111,28 @@ public class CMSmenu {
 					
 					if(num == 1) {
 						System.out.print("차번 : ");
-						car.SetCarNum(input.next());
+						String CarNum = input.next();
+						car.setCarNum(CarNum);
 					}
 					else if(num == 2) {
 						System.out.print("차종 : ");
-						car.SetCarType(input.next());
+						String CarType = input.next();
+						car.setCarType(CarType);
 					}
 					else if(num == 3) {
 						System.out.print("제조사 : ");
-						car.SetCarMaker(input.next());
+						String CarMaker = input.next();
+						car.setCarMaker(CarMaker);
 					}
 					else if(num == 4) {
 						System.out.print("차명 : ");
-						car.SetCarName(input.next());
+						String CarName = input.next();
+						car.setCarName(CarName);
 					}
 					else if(num == 5) {
 						System.out.print("연식 : ");
-						car.SetCarAge(input.nextInt());
+						int CarAge = input.nextInt();
+						car.setCarAge(CarAge);
 					}
 					else {
 						continue;
